@@ -14,7 +14,41 @@ document.addEventListener('DOMContentLoaded', () => {
     // Store daycare data and layers for search functionality
     let daycareData = [];
     let daycareLayers = {};
+    let allLayers = []; // Store all marker layers for counting
     let dataLoaded = false;
+    const CITY_ZOOM_LEVEL = 10; // Zoom level where we show the count
+
+    // Marker count display
+    const markerCountEl = document.getElementById('marker-count');
+    const countNumberEl = document.getElementById('count-number');
+
+    function updateMarkerCount() {
+        if (!dataLoaded || map.getZoom() < CITY_ZOOM_LEVEL) {
+            markerCountEl.classList.add('hidden');
+            return;
+        }
+
+        const bounds = map.getBounds();
+        let visibleCount = 0;
+
+        allLayers.forEach(layer => {
+            const latLng = layer.getLatLng ? layer.getLatLng() : null;
+            if (latLng && bounds.contains(latLng)) {
+                visibleCount++;
+            }
+        });
+
+        if (visibleCount > 0) {
+            countNumberEl.textContent = visibleCount;
+            markerCountEl.classList.remove('hidden');
+        } else {
+            markerCountEl.classList.add('hidden');
+        }
+    }
+
+    // Listen for map movements
+    map.on('moveend', updateMarkerCount);
+    map.on('zoomend', updateMarkerCount);
 
     // Search functionality
     const searchInput = document.getElementById('daycare-search');
@@ -202,6 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             };
                             daycareData.push(daycare);
                             daycareLayers[daycare.id] = layer;
+                            allLayers.push(layer);
                         }
                     }
                 }
@@ -213,6 +248,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (searchInput.value.length === 0) {
                 searchInput.placeholder = `Search ${daycareData.length} daycares by name...`;
             }
+            
+            // Initial marker count check
+            updateMarkerCount();
         })
         .catch(error => {
             console.error('Error loading the GeoJSON data:', error);

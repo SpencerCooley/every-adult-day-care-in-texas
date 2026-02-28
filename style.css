@@ -160,6 +160,52 @@ h1 {
     height: calc(100vh - 170px);
     width: 100%;
     z-index: 1;
+    position: relative;
+}
+
+/* Marker count display */
+.marker-count {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 2px solid #4CAF50;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.marker-count.hidden {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+}
+
+#count-number {
+    color: #4CAF50;
+    font-size: 20px;
+    margin-right: 4px;
+}
+
+/* Mobile adjustments for marker count */
+@media (max-width: 768px) {
+    .marker-count {
+        top: 10px;
+        right: 10px;
+        font-size: 13px;
+        padding: 10px 16px;
+    }
+    
+    #count-number {
+        font-size: 18px;
+    }
 }
 
 /* Leaflet popup mobile optimization */
