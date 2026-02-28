@@ -1,0 +1,240 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    touch-action: manipulation;
+}
+
+header {
+    background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+    color: white;
+    padding: 15px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+h1 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 6px 0;
+    line-height: 1.3;
+}
+
+.subtitle {
+    font-size: 13px;
+    margin: 0;
+    opacity: 0.9;
+}
+
+.subtitle a {
+    color: white;
+    text-decoration: underline;
+}
+
+.subtitle a:hover {
+    opacity: 0.8;
+}
+
+#search-container {
+    position: relative;
+    padding: 15px 20px;
+    background: white;
+    border-bottom: 1px solid #e0e0e0;
+    z-index: 1000;
+}
+
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#daycare-search {
+    width: 100%;
+    padding: 14px 40px 14px 16px;
+    font-size: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    background: white;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    min-height: 48px;
+}
+
+#daycare-search:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
+}
+
+#clear-search {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    font-size: 24px;
+    color: #999;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-radius: 50%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#clear-search:active {
+    background: rgba(0,0,0,0.1);
+}
+
+#clear-search.visible {
+    display: flex;
+}
+
+#search-results {
+    position: absolute;
+    top: calc(100% - 5px);
+    left: 20px;
+    right: 20px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    max-height: 60vh;
+    overflow-y: auto;
+    z-index: 1001;
+    display: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.search-result {
+    padding: 16px 18px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.search-result:active,
+.search-result:hover {
+    background-color: #f5f5f5;
+}
+
+.search-result:last-child {
+    border-bottom: none;
+}
+
+.search-result-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: #333;
+    line-height: 1.3;
+    margin-bottom: 4px;
+}
+
+.search-result-address {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+}
+
+.no-results {
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+    text-align: center;
+}
+
+#map {
+    height: calc(100vh - 170px);
+    width: 100%;
+    z-index: 1;
+}
+
+/* Leaflet popup mobile optimization */
+.leaflet-popup-content-wrapper {
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.leaflet-popup-content {
+    margin: 14px 16px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Mobile touch improvements for map */
+.leaflet-container {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Hide clear button on very small screens if needed */
+@media (max-width: 320px) {
+    h1 {
+        font-size: 16px;
+    }
+    
+    .subtitle {
+        font-size: 12px;
+    }
+}
+
+/* Tablet and desktop adjustments */
+@media (min-width: 768px) {
+    header {
+        padding: 20px 30px;
+    }
+    
+    h1 {
+        font-size: 24px;
+    }
+    
+    .subtitle {
+        font-size: 14px;
+    }
+    
+    #search-container {
+        padding: 20px 30px;
+    }
+    
+    #daycare-search {
+        font-size: 17px;
+        padding: 16px 44px 16px 18px;
+    }
+    
+    #search-results {
+        left: 30px;
+        right: 30px;
+        max-height: 400px;
+    }
+    
+    #map {
+        height: calc(100vh - 200px);
+    }
+}
+
+/* Desktop - larger screens */
+@media (min-width: 1024px) {
+    #search-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    #search-results {
+        left: 0;
+        right: 0;
+    }
+}
